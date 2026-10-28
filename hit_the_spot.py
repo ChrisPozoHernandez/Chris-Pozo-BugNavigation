@@ -17,7 +17,7 @@ def drive_to_pose(goal_x, goal_y, goal_theta, robot):
         #find the distance to the goal
         dx = goal_x - x
         dy = goal_y - y
-        distance = np.sqrt(sx**2 + dy**2)
+        distance = np.sqrt(dx**2 + dy**2)
 
         #find the difference in angle
         angle_error = goal_theta - theta
