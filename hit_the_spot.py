@@ -67,8 +67,19 @@ to position (2, 3) with angle 0, do:
   drive_to_pose(2, 3, 0, robot);
 
 """
+#move to three goal points (example coordinates)
+try:
+    drive_to_pose(0.5, 0, 0, robot)
+    time.sleep(1)
 
-# Stop the robot before exiting.
-robot.stop()
+    drive_to_pose(0.5, 0.5, 0, robot)
+    time.sleep(1)
+    
+    drive_to_pose(0, 0, 0, robot)
+
+finally:
+    # Stop the robot before exiting.
+    robot.stop()
 
 # TODO: Print out the robot's final odometry before exiting.
+print("Final odometry:", robot.read_odomentry())
