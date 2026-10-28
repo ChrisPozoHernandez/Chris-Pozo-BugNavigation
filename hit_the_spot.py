@@ -10,7 +10,41 @@ def drive_to_pose(goal_x, goal_y, goal_theta, robot):
     HINT: Use robot.read_odometry() to get a list of length 3 containing the
     robot's odometry [x, y, theta]. The odometry frame is the pose the robot
     is in at the start of this script."""
-    pass
+    #keep moving until the robot reaches the goal
+    while True:
+        x, y, theta = robot.read_odometry()
+
+        #find the distance to the goal
+        dx = goal_x - x
+        dy = goal_y - y
+        distance = np.sqrt(sx**2 + dy**2)
+
+        #find the difference in angle
+        angle_error = goal_theta - theta
+        angle_error = np.arctan2(
+            np.sin(angle_error),
+            np.cos(angle_error)
+        )
+
+        #stop when position and angle are close enough
+        if distance < 0.05 and abs(angle_error) < 0.1:
+            robot.stop()
+            break
+
+        #convert movement to robot coordinates
+        vx = 0.5 * (np.cos(theta) * dx + np.sin(theta) * dy)
+        vy = 0.5 * (-np.sin(theta) * dx + np.cos(theta) * dy)
+        wz = 0.5 * angle_error
+
+        #limit the speed
+        vx = np.clip(vx, -0.15, 0.15)
+        vy = np.clip(vy, -0.15, 0.15)
+        wz = np.clip(wz, -0.3, 0.3)
+
+        #move the robot
+        robot.drive(float(vx), float(vy), float(wz))
+
+        time.sleep(0.1)
 
 
 robot = MBot()
