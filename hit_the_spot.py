@@ -82,4 +82,4 @@ finally:
     robot.stop()
 
 # TODO: Print out the robot's final odometry before exiting.
-print("Final odometry:", robot.read_odomentry())
+print("Final odometry:", robot.read_odometry())
