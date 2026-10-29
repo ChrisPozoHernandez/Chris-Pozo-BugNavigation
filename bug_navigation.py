@@ -81,6 +81,13 @@ try:
           obstacle_ahead = True
           break
 
+    #Change to wall following
+    if state == "GO_TO_GOAL" and obstacle_ahead:
+      state = "FOLLOW_WALL"
+      hit_distance = distance
+      left_hit_point = False
+      print("State:", state)
+
 # Stop the robot before exiting.
 robot.stop()
 
