@@ -88,6 +88,19 @@ try:
       left_hit_point = False
       print("State:", state)
 
+    #check the distance from the start-to-goal line
+    line_dx = goal_x - start_x
+    line_dy = goal_y - start_y
+    line_length = np.sqrt(line_dx**2 + line_dy**2)
+    
+    if line_length > 0:
+      line_error = abs(
+        line_dy * (x - start_x) -
+        line_dx * (y - start_y)
+      ) / line_length
+    else:
+      line_error = 0
+
 # Stop the robot before exiting.
 robot.stop()
 
