@@ -21,6 +21,10 @@ def find_min_dist(ranges, thetas):
 
   return min_dist, min_angle
 
+#find the difference between two angles
+def angle_difference(a, b):
+  return np.arctan2(np.sin(a - b), np.cos(a - b))
+
 # Reset the robot odometry to zero at the beginning of the run.
 robot.reset_odometry()
 
