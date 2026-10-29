@@ -17,7 +17,7 @@ def find_min_dist(ranges, thetas):
     if ranges [i] > 0:
       if min_dist is None or ranges[i] < min_dist:
         min_dist = ranges[i]
-        min_angle = thestas[i]
+        min_angle = thetas[i]
 
   return min_dist, min_angle
 
