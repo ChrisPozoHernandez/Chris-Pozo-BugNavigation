@@ -112,6 +112,10 @@ try:
         state = "GO_TO_GOAL"
         print("State:", state) 
 
+    if state == "GO_TO_GOAL":
+      #Same movement calculations as hit_the_spot.py
+      
+
 # Stop the robot before exiting.
 robot.stop()
 
