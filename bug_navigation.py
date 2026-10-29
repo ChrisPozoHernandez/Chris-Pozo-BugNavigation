@@ -159,10 +159,10 @@ try:
 except KeyboardInterrupt:
   print("Navogation stopped.")
     
-        
-      
 
-# Stop the robot before exiting.
-robot.stop()
+finally:
+      # Stop the robot before exiting.
+      robot.stop()
 
 # TODO: Print out the robot's final odometry before exiting.
+print("Final odometry:", robot.read_odometry())
