@@ -4,6 +4,10 @@ from mbot_bridge.api import MBot
 
 robot = MBot()
 # TODO: Declare any other variables you might need here.
+state = "GO_TO_GOAL"
+speed = 0.08
+setpoint = 0.4
+
 
 # Reset the robot odometry to zero at the beginning of the run.
 robot.reset_odometry()
