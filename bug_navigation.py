@@ -101,6 +101,17 @@ try:
     else:
       line_error = 0
 
+    #return to the goal when the path is clear
+    if state == "FOLLOW_WALL":
+      if line_error > 0.15:
+        left_hit_point = True
+
+      if (left_hit_point and line_error < 0.08
+              and distance < hit_distance - 0.15
+              and not obstacle_ahead):
+        state = "GO_TO_GOAL"
+        print("State:", state) 
+
 # Stop the robot before exiting.
 robot.stop()
 
