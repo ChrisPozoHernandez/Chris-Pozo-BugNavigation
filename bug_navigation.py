@@ -114,6 +114,21 @@ try:
 
     if state == "GO_TO_GOAL":
       #Same movement calculations as hit_the_spot.py
+      vx = 0.5 * (np.cos(theta) * dx + np.sin(theta) * dy)
+      vy = 0.5 * (-np.sin(theta) * dx + np.cos(theta) * dy)
+
+      vx = np.clip(vx, -0.12, 0.12)
+      vy = np.clip(vy, -0.12, 0.12)
+
+      robot.drive(float(vx), float(vy), 0)
+    
+    elif state == "FOLLOW_WALL":
+      dist, angle = find_min_dist(ranges, thetas)
+      
+      if dist is None:
+        robot.stop()
+        time.sleep(0.1)
+        continue
       
 
 # Stop the robot before exiting.
