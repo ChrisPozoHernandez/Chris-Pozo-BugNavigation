@@ -29,6 +29,13 @@ def angle_difference(a, b):
 robot.reset_odometry()
 
 # TODO: (P2.4) Ask the user for a goal pose (x and y position and angle).
+goal_x = float(input("Enter goal x: "))
+goal_y = float(input("Enter goal y: "))
+goal_theta = float(input("Enter goal theta in radians: "))
+
+start_x, start_y, _ = robot.read_odometry()
+hit_distance = None
+left_hit_point = False
 
 """
 TODO: (P2.3 & P2.4) Write code to drive to the given goal while avoiding
@@ -37,6 +44,42 @@ obstacles here.
 HINT: You may reuse your code and util functions from wall follower and hit the
 spot wherever you need to.
 """
+try:
+  while True:
+    #this is to read robots position and lidar
+    x, y, theta = robot.read_odometry()
+    ranges, thetas = robot.read_lidar()
+
+    dx = goal_x - x
+    dy = goal_y - y
+    distance = np.sqrt(dx**2 + dy**2)
+    
+    #check if the robot reached teh goal
+    angle_error = angle_difference(goal_theta, theta)
+
+    if distance < 0.05:
+      if state != "GOAL_REACHED":
+        state = "GOAL_REACHED"
+        print("State:", state)
+
+      if abs(angle_error) < 0.1:
+        break
+
+      wz = np.clip(0.5 * angle_error, -0.2, 0.2)
+      robot.drive(0, 0, float(wz))
+      time.sleep(0.1)
+      continue
+
+    #Check for obstacles toward the goal
+    goal_angle = angle_difference(np.arctan2(dy, dx), theta)
+    obstacle_ahead = False
+
+    for i in range(len(ranges)):
+      if ranges[i] > 0:
+        angle = angle_difference(thetas[i], goal_angle)
+        if abs(angle) < 0.35 and ranges[i] < 0.5:
+          obstacle_ahead = True
+          break
 
 # Stop the robot before exiting.
 robot.stop()
