@@ -129,6 +129,37 @@ try:
         robot.stop()
         time.sleep(0.1)
         continue
+
+      #finnd direction toward the wall
+      wall = np.array([
+        np.cos(angle),
+        np.sin(angle),
+        0
+      ])
+
+      #move along the wall
+      forward = np.cross(wall, [0, 0, 1])
+      
+      error = dist - setpoint
+      correction = np.clip(0.5 * error, -0.08, 0.08)
+
+      if dist < 0.25:
+        movement = -0.08 * wall
+      else:
+        movement = speed * forward + correction * wall
+      
+      robot.drive(
+        float(movement[0]),
+        float(movement[1]),
+        0
+      )
+    
+    time.sleep(0.1)
+
+except KeyboardInterrupt:
+  print("Navogation stopped.")
+    
+        
       
 
 # Stop the robot before exiting.
