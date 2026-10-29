@@ -8,6 +8,18 @@ state = "GO_TO_GOAL"
 speed = 0.08
 setpoint = 0.4
 
+#find the nearest wall
+def find_min_dist(ranges, thetas):
+  min_dist = None
+  min_angle = None
+
+  for i in range(len(ranges)):
+    if ranges [i] > 0:
+      if min_dist is None or ranges[i] < min_dist:
+        min_dist = ranges[i]
+        min_angle = thestas[i]
+
+  return min_dist, min_angle
 
 # Reset the robot odometry to zero at the beginning of the run.
 robot.reset_odometry()
