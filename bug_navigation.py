@@ -157,7 +157,7 @@ try:
     time.sleep(0.1)
 
 except KeyboardInterrupt:
-  print("Navogation stopped.")
+  print("Navigation stopped.")
     
 
 finally:
